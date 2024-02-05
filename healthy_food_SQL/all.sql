@@ -5,7 +5,7 @@ SET time_zone = "+08:00";
 CREATE DATABASE IF NOT EXISTS `food` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `food`;
 
----------------------于靖-----------------------
+-- ---------------------于靖-----------------------
 
 -- 首頁 Banner輪播 `banner_carousel`
 
@@ -35,7 +35,7 @@ INSERT INTO `webmaster`
 ('于靖', 'bill6217', 'pmes6217', 'dis90503dis@gmail.com');
 
 
----------------------培英-----------------------
+-- ---------------------培英-----------------------
 -- 會員等級 
 CREATE TABLE IF NOT EXISTS `member_level` ( 
 `level_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -142,7 +142,7 @@ INSERT INTO quiz_game (quiz_name, option_a, option_b, option_c, option_d, quiz_a
 
 
 
----------------------佳容-----------------------
+-- ---------------------佳容-----------------------
 -- 熱門食譜
 
 CREATE TABLE `recipe`(
@@ -245,7 +245,7 @@ CREATE TABLE `report`(
 );
 
 
----------------------明柔-----------------------
+-- ---------------------明柔-----------------------
 
 -- 商品 `product`
 CREATE TABLE IF NOT EXISTS `product`(
@@ -327,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `prodgroup_details`(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
----------------------柏儒-----------------------
+-- ---------------------柏儒-----------------------
 
 -- 常見問題分類
 CREATE TABLE IF NOT EXISTS `question_class` (
@@ -380,7 +380,7 @@ CREATE TABLE IF NOT EXISTS `featured_columns` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
----------------------莘慈-----------------------
+-- ---------------------莘慈-----------------------
 
 CREATE TABLE `ORDERS`(
 `ORD_NO` int NOT NULL,
