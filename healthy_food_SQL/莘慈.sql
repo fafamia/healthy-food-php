@@ -6,74 +6,76 @@ CREATE DATABASE IF NOT EXISTS `food` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8m
 USE `food`;
 
 -- -------------------莘慈-----------------------
--- 訂單 `orders`
-CREATE TABLE `orders`(
-`ord_no` int,
-`user_no` int NOT NULL,
-`ord_time` datetime NOT NULL,
-`ord_name` varchar(20) NOT NULL DEFAULT '',
-`take_name` varchar(20) NOT NULL DEFAULT '',
-`take_mail` varchar(20) NOT NULL DEFAULT '',
-`take_tel` varchar(10) NOT NULL DEFAULT '',
-`take_address` varchar(100) NOT NULL DEFAULT '',
-`ord_shipping` tinyint NOT NULL DEFAULT '1',
-`payment_status` tinyint NOT NULL DEFAULT '1',
-`ord_status` tinyint NOT NULL DEFAULT '1',
-`delivery_fee` int,
-`ord_amount` int NOT NULL,
-`sales_amount` int,
-`ord_payment` int NOT NULL,
-`user_sales` DECIMAL (3,2),
-PRIMARY KEY (`ord_no`),
-foreign key(`user_no`)references members(`member_no`),
-unique key(`ord_no`)
+-- 訂單 `ORDERS`
+CREATE TABLE `ORDERS`(
+`ORD_NO` int,
+`USER_NO` int NOT NULL,
+`ORD_TIME` datetime NOT NULL,
+`ORD_NAME` varchar(20) NOT NULL DEFAULT '',
+`TAKE_NAME` varchar(20) NOT NULL DEFAULT '',
+`TAKE_MAIL` varchar(20) NOT NULL DEFAULT '',
+`TAKE_TEL` varchar(10) NOT NULL DEFAULT '',
+`TAKE_ADDRESS` varchar(100) NOT NULL DEFAULT '',
+`ORD_SHIPPING` tinyint NOT NULL DEFAULT '1',
+`PAYMENT_STATUS` tinyint NOT NULL DEFAULT '1',
+`ORD_STATUS` tinyint NOT NULL DEFAULT '1',
+`DELIVERY_FEE` int,
+`ORD_AMOUNT` int NOT NULL,
+`SALES_AMOUNT` int,
+`ORD_PAYMENT` int NOT NULL,
+`USER_SALES` DECIMAL (3,2),
+PRIMARY KEY (`ORD_NO`),
+foreign key(`USER_NO`)references MEMBERS(`MEMBER_NO`),
+unique key(`ORD_NO`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `orders`(`ord_no`,`user_no`,`ord_time`,`ord_name`,`take_name`,`take_mail`,`take_tel`,`take_address`,
-`ord_shipping`,`payment_status`,`ord_status`,`delivery_fee`,`ord_amount`,`sales_amount`,`ord_payment`,`user_sales`)VALUES
+INSERT INTO `ORDERS`(`ORD_NO`,`USER_NO`,`ORD_TIME`,`ORD_NAME`,`TAKE_NAME`,`TAKE_MAIL`,`TAKE_TEL`,`TAKE_ADDRESS`,
+`ORD_SHIPPING`,`PAYMENT_STATUS`,`ORD_STATUS`,`DELIVERY_FEE`,`ORD_AMOUNT`,`SALES_AMOUNT`,`ORD_PAYMENT`,`USER_SALES`)VALUES
 (CONVERT(UNIX_TIMESTAMP(NOW(6)), SIGNED),1,NOW(),'王小名','王小名','aabbcc@test.com',0988123456,'桃園市中壢區成功路88號',1,1,1,60,3000,
 10,2745,0.9);
 
--- 訂單明細 `order_details`
-CREATE TABLE `order_details`(
-`ord_details_no` int AUTO_INCREMENT NOT NULL,
-`ord_no` int NOT NULL,
-`product_no` int NOT NULL,
-`product_name` varchar(20) NOT NULL DEFAULT '',
-`purchase_count` int NOT NULL,
-`purchase_price` int NOT NULL,
-PRIMARY KEY (`ord_details_no`),
-FOREIGN KEY (`ord_no`) REFERENCES `orders`(`ord_no`),
-FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`)
+-- 訂單明細 `ORDER_DETAILS`
+
+CREATE TABLE `ORDER_DETAILS`(
+`ORD_DETAILS_NO` int AUTO_INCREMENT NOT NULL,
+`ORD_NO` int NOT NULL,
+`PRODUCT_NO` int NOT NULL,
+`PRODUCT_NAME` varchar(20) NOT NULL DEFAULT '',
+`PURCHASE_COUNT` int NOT NULL,
+`PURCHASE_PRICE` int NOT NULL,
+PRIMARY KEY (`ORD_DETAILS_NO`),
+FOREIGN KEY (`ORD_NO`) REFERENCES `ORDERS`(`ORD_NO`),
+FOREIGN KEY (`PRODUCT_NO`) REFERENCES `PRODUCT`(`PRODUCT_NO`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `order_details`(
-`ord_no`,`product_no`,`product_name`,`purchase_count`,`purchase_price`)VALUES
+INSERT INTO `ORDER_DETAILS`(
+`ORD_NO`,`PRODUCT_NO`,`PRODUCT_NAME`,`PURCHASE_COUNT`,`PURCHASE_PRICE`)VALUES
 (231231182410,1001,'南瓜蔬食調理包',1,330);
 
--- 商品我的最愛 `favorite`
-CREATE TABLE `favorite`(
-`favorite_no` int AUTO_INCREMENT NOT NULL,
-`user_no` int NOT NULL,
-`product_no` int NOT NULL,
-`product_name` varchar(20) NOT NULL DEFAULT '',
-PRIMARY KEY (`favorite_no`),
-foreign key(`user_no`)references members(`member_no`),
-FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`)
+-- 商品我的最愛 `FAVORITE`
+create table `FAVORITE`(
+`FAVORITE_NO`int AUTO_INCREMENT NOT NULL,
+`USER_NO`int NOT NULL,
+`PRODUCT_NO`int NOT NULL,
+`PRODUCT_NAME`varchar(20) NOT NULL DEFAULT '',
+PRIMARY KEY (`FAVORITE_NO`),
+foreign key(`USER_NO`)references MEMBERS(`MEMBER_NO`),
+FOREIGN KEY (`PRODUCT_NO`) REFERENCES `PRODUCT`(`PRODUCT_NO`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `favorite`(
-`user_no`,`product_no`,`product_name`)VALUES
+insert into `FAVORITE`(
+`USER_NO`,`PRODUCT_NO`,`PRODUCT_NAME`)VALUES
 (1,1001,'南瓜蔬食調理包');
 
--- 首頁推薦商品 `featured_product`
-CREATE TABLE `featured_product`(
-`featured_product_no` int AUTO_INCREMENT NOT NULL,
-`product_no` int NOT NULL,
-PRIMARY KEY (`featured_product_no`),
-FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`)
+-- 首頁推薦商品 `FEATURED_PRODUCT`
+
+create table `FEATURED_PRODUCT`(
+`FEATURED_PRODUCT_NO`int AUTO_INCREMENT NOT NULL,
+`PRODUCT_NO`int NOT NULL,
+PRIMARY KEY (`FEATURED_PRODUCT_NO`),
+FOREIGN KEY (`PRODUCT_NO`) REFERENCES `PRODUCT`(`PRODUCT_NO`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `featured_product`(
-`product_no`)VALUES
+insert into `FEATURED_PRODUCT`(
+`PRODUCT_NO`)VALUES
 (1001);
