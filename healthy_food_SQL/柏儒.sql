@@ -1,3 +1,5 @@
+-- ---------------------柏儒-----------------------
+
 -- 常見問題分類
 CREATE TABLE IF NOT EXISTS `question_class` (
   `question_no` INT NOT NULL AUTO_INCREMENT,
@@ -47,5 +49,3 @@ CREATE TABLE IF NOT EXISTS `featured_columns` (
   PRIMARY KEY (`featured_no`),
   FOREIGN KEY (`article_no`) REFERENCES `article_overview` (`article_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-

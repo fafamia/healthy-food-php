@@ -1,3 +1,5 @@
+-- ---------------------佳容-----------------------
+-- 熱門食譜
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+08:00";
@@ -7,6 +9,7 @@ USE `food`;
 
 -- 熱門食譜
 
+DROP TABLE IF EXISTS `recipe`;
 CREATE TABLE `recipe`(
 	`recipe_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `recipe_class_no` INT NOT NULL,
@@ -58,6 +61,7 @@ INSERT INTO `recipe` (`recipe_name`,`recipe_recommend`,`recipe_people`,`recipe_t
 
 -- 食譜分類
 
+DROP TABLE IF EXISTS `recipe_class`;
 CREATE TABLE `recipe_class`(
 	`recipe_class_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `recipe_class_name` VARCHAR(20)
@@ -68,6 +72,7 @@ INSERT INTO `recipe_class`(`recipe_class_name`) VALUES
 
 -- 我的收藏
 
+DROP TABLE IF EXISTS `recipe_bookmark`;
 CREATE TABLE `recipe_bookmark`(
 	`recipe_bookmark_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_no` INT NOT NULL,
@@ -79,6 +84,7 @@ CREATE TABLE `recipe_bookmark`(
 
 -- 食譜留言
 
+DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment`(
 	`comment_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_no` INT NOT NULL,
@@ -94,6 +100,7 @@ CREATE TABLE `comment`(
 
 -- 檢舉留言
 
+DROP TABLE IF EXISTS `report`;
 CREATE TABLE `report`(
 	`report_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_no` INT NOT NULL,
@@ -105,4 +112,3 @@ CREATE TABLE `report`(
     FOREIGN KEY (user_no) REFERENCES users(user_no),
     FOREIGN KEY (comment_no) REFERENCES comment(comment_no)
 );
-    

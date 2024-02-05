@@ -1,13 +1,8 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+-- ---------------------于靖-----------------------
 
-CREATE DATABASE IF NOT EXISTS `food` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `food`;
-
----------------------于靖-----------------------
 -- 首頁 Banner輪播 `banner_carousel`
 
+DROP TABLE IF EXISTS `banner_carousel`;
 CREATE TABLE IF NOT EXISTS `banner_carousel` (
   `carousel_no` int NOT NULL AUTO_INCREMENT,
   `banner_title` varchar(100) NOT NULL DEFAULT '',
@@ -20,7 +15,8 @@ INSERT INTO `banner_carousel` (`banner_title`, `banner_image`) VALUES
 
 -- 後臺管理員 `webmaster`
 
-CREATE TABLE `webmaster` (
+DROP TABLE IF EXISTS `webmaster`;
+CREATE TABLE IF NOT EXISTS `webmaster` (
   `master_no` int NOT NULL AUTO_INCREMENT,
   `master_name` varchar(50) NOT NULL,
   `master_account` varchar(10) NOT NULL,
@@ -32,8 +28,3 @@ CREATE TABLE `webmaster` (
 INSERT INTO `webmaster` 
 (`master_name`, `master_account`, `master_password`, `master_email`) VALUES
 ('于靖', 'bill6217', 'pmes6217', 'dis90503dis@gmail.com');
-
-
-
-
-COMMIT;
