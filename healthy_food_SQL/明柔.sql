@@ -11,7 +11,9 @@ USE `test`;
 CREATE TABLE IF NOT EXISTS `product`(
     `product_no` int NOT NULL AUTO_INCREMENT,
     `product_class_no` int NOT NULL,
+    `product_class_name` int NOT NULL,
     `product_tag_no` int NOT NULL,
+    `product_tag_name` int NOT NULL,
     `product_name` varchar(20) NOT NULL,
     `product_info` varchar(200),
     `product_loc` varchar(20),
