@@ -9,7 +9,7 @@ USE `test`;
 -- --------------------------------------------------------
 -- 商品 `product`
 CREATE TABLE IF NOT EXISTS `product`(
-    `product_no` int NOT NULL AUTO_INCREMENT,
+    `product_no` int NOT NULL ,
     `product_class_no` int NOT NULL,
     `product_class_name` int NOT NULL,
     `product_tag_no` int NOT NULL,
@@ -22,14 +22,14 @@ CREATE TABLE IF NOT EXISTS `product`(
     `product_price` int,
     `product_img` varchar(30) NOT NULL,
     `product_status` tinyint DEFAULT 2,
-    PRIMARY KEY (`product_no`)
+    PRIMARY KEY (`product_no`),
     FOREIGN KEY (`product_class_no`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `product`
-(`product_name`,`product_info`,`product_loc`,`product_standard`,`product_content`,`product_price`,`product_img`,`product_status`)
+(`product_no`,`product_name`,`product_info`,`product_loc`,`product_standard`,`product_content`,`product_price`,`product_img`,`product_status`)
 VALUES
-('南瓜蔬食調理包','這款調理包是忙碌生活中的完美選擇，主要以新鮮南瓜為基底，搭配多種營養豐富的蔬菜。方便快捷的料理方式，不僅省時也兼顧健康，適合素食者和尋求健康飲食的消費者。','桃園','300g/包','每份量： 100 克、熱量： 120 大卡、脂肪： 2 克、膽固醇： 60 毫克、鈉： 70 毫克、碳水化合物： 0 克','160','pumpkin_cover.png','2');
+(1001,'南瓜蔬食調理包','這款調理包是忙碌生活中的完美選擇，主要以新鮮南瓜為基底，搭配多種營養豐富的蔬菜。方便快捷的料理方式，不僅省時也兼顧健康，適合素食者和尋求健康飲食的消費者。','桃園','300g/包','每份量： 100 克、熱量： 120 大卡、脂肪： 2 克、膽固醇： 60 毫克、鈉： 70 毫克、碳水化合物： 0 克','160','pumpkin_cover.png','2');
 
 -- --------------------------------------------------------
 -- 商品分類 `product_class`
