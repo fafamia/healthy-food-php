@@ -4,7 +4,6 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 require_once("connect_chd104g3.php");
-// require_once("test_local_pdo.php");
 
 try {
     $sql = "SELECT carousel_no, banner_title, banner_image FROM banner_carousel";
