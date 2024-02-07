@@ -281,18 +281,6 @@ CREATE TABLE IF NOT EXISTS `product_tag`(
 INSERT INTO `product_tag` (`product_tag_name`) VALUES ('NEW');
 
 -- --------------------------------------------------------
--- 商品群組 `prodgroup`
-CREATE TABLE IF NOT EXISTS `prodgroup`(
-    `prodgroup_no` int NOT NULL AUTO_INCREMENT,
-    `prodgroup_name` varchar(20) NOT NULL,
-    `prodgroup_start` date,
-    `prodgroup_end` date,
-    PRIMARY KEY (`prodgroup_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO `prodgroup` (`prodgroup_name`,`prodgroup_start`,`prodgroup_end`) VALUES ('首頁推薦商品','2024-02-06','2024-12-31');
-
--- --------------------------------------------------------
 -- 商品 `product`
 CREATE TABLE IF NOT EXISTS `product`(
     `product_no` int NOT NULL ,
