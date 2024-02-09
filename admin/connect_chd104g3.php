@@ -21,3 +21,5 @@ $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_CASE => 
 
 
 $pdo = new PDO($dsn, $user, $password, $options);
+
+
