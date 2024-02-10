@@ -7,7 +7,7 @@ try {
     // $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    require_once("connect_chd104g3.php");
+    require_once("../connect_chd104g3.php");
     $sql = "SELECT p.product_no, pc.product_class_name, pt.product_tag_name, p.product_name, p.product_price, p.product_status FROM product p JOIN product_class pc ON p.product_class_no = pc.product_class_no LEFT JOIN product_tag pt ON p.product_tag_no = pt.product_tag_no";
 
     $stmt = $pdo->query($sql);
