@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 // 引入資料庫連接
-require_once("../connect_chd104g3.php");
+require_once("../../connect_chd104g3.php");
 // 從前端來的數據解析 成 PHP 數據
 $data = json_decode(file_get_contents("php://input"), true);
 // 從解析後的 JSON 數據中 獲取要刪除的carousel_no

@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 // 引入數據庫連接文件
-require_once("../connect_chd104g3.php");
+require_once("../../connect_chd104g3.php");
 // 檢查請求方法是否為 POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // 檢查是否接收到了標題和圖片檔案

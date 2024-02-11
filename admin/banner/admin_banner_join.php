@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 // 引入資料庫連接
-require_once("../connect_chd104g3.php");
+require_once("../../connect_chd104g3.php");
 
 try {
     // 準備 SQL 查詢語句，選擇所有 banner_carousel 表格中的欄位
