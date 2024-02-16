@@ -14,10 +14,10 @@ if (!$account || !$password) {
     exit;
 }
 
-$sql = "SELECT * FROM webmaster WHERE master_account = :account and master_password = :password";
+$sql = "SELECT * FROM webmaster WHERE master_account = :account and master_password = :psw";
 $stmt = $pdo->prepare($sql);
 $stmt->bindParam(':account', $account);
-$stmt->bindParam(':password', $password);
+$stmt->bindParam(':psw', $password);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 

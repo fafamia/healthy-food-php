@@ -18,7 +18,9 @@ CREATE TABLE IF NOT EXISTS `banner_carousel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `banner_carousel` (`banner_title`, `banner_image`) VALUES
-('嚴選有機食材<br>為您和家人打造營養均衡的每一餐', 'banner01.jpg');
+('嚴選有機食材<br>為您和家人打造營養均衡的每一餐', 'banner01.jpg'),
+('嚴選有機食材<br>為您和狗狗打造營養均衡的每一餐', 'banner02.jpg'),
+('嚴選有機食材<br>為您和寵物打造營養均衡的每一餐', 'banner03.jpg');
 
 -- 後臺管理員 `webmaster`
 
@@ -34,7 +36,12 @@ CREATE TABLE IF NOT EXISTS `webmaster` (
 
 INSERT INTO `webmaster` 
 (`master_name`, `master_account`, `master_password`, `master_email`) VALUES
-('于靖', 'bill6217', 'pmes6217', 'dis90503dis@gmail.com');
+('于靖','bi116217','bi116217','bi116217@gmail.com'),
+('培英','fafamia','fafamia','fafamia@gmail.com'),
+('莘慈','alucky36572','alucky36572','alucky36572@gmail.com'),
+('佳容','covncovy','covncovy','covncovy@gmail.com'),
+('明柔','MMMMMilo','MMMMMilo','MMMMMilo@gmail.com'),
+('柏儒','lin87100123','lin87100123', 'lin87100123@gmail.com');
 
 
 -- ---------------------培英-----------------------
