@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `webmaster` (
 
 INSERT INTO `webmaster` 
 (`master_name`, `master_account`, `master_password`, `master_email`) VALUES
-('于靖','bi116217','bi116217','bi116217@gmail.com'),
+('于靖','bill6217','bill6217','bill6217@gmail.com'),
 ('培英','fafamia','fafamia','fafamia@gmail.com'),
 ('莘慈','alucky36572','alucky36572','alucky36572@gmail.com'),
 ('佳容','covncovy','covncovy','covncovy@gmail.com'),
