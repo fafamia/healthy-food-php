@@ -4,7 +4,7 @@ $dbname = "food";
 $username = "root";
 $password = "";
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $productClass = json_decode(file_get_contents('php://input'), true);
+$productClass = json_decode(file_get_contents('php://input'), true);
     try{
         
         header("Access-Control-Allow-Origin: *");
