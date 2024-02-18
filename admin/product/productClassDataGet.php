@@ -8,7 +8,7 @@ try {
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// require_once("connect_chd104g3.php");
+ require_once("connect_chd104g3.php");
 
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -26,4 +26,21 @@ try {
 }
 $conn = null;
 
+?>
+<?php
+// try {
+//     header("Access-Control-Allow-Origin: *");
+//     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+//     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+//     require_once("../../connect_chd104g3.php");
+
+//     $sql = "SELECT * FROM product_class";
+
+//     $stmt = $pdo->query($sql);
+//     $productTags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//     header('Content-Type: application/json');
+// } catch (PDOException $e) {
+//     echo "Error: ". $e->getMessage();
+// }
+// echo json_encode($productTags);
 ?>
