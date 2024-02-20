@@ -3,9 +3,10 @@
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+        header('Content-Type: application/json');
         require_once("../../connect_chd104g3.php");
 
-        $sql = "INSERT INTO product VALUES (:product_no,:product_class_no,:product_tag_no,:product_name,:product_info,:product_loc,:product_standard,:product_content,:product_price,:product_image,:product_status)";
+        $sql = "INSERT INTO product VALUES (:product_no,:product_class_no,:product_tag_no,:product_name,:product_info,:product_loc,:product_standard,:product_content,:product_price,:product_img,:product_status)";
 
         $products = $pdo->prepare($sql);
         //用$_POST接收input的資料
@@ -20,23 +21,22 @@
         $products->bindValue(":product_price",$_POST["product_price"]);
         $products->bindValue(":product_status",$_POST["product_status"]);
         //圖片上傳檔案位置
-        
-        if(isset($_FILES["product_image"]) && $_FILES["product_image"]["error"] === 0){
+        if(isset($_FILES["product_img"]) && $_FILES["product_img"]["error"] === 0){
             $dir = "../../../images/product/";
             if(!file_exists($dir)){
                 mkdir($dir,0755,true);
             }
             //取得圖片檔名
-            $fileName = pathinfo($_FILES["product_image"]["name"], PATHINFO_FILENAME);
+            $fileName = pathinfo($_FILES["product_img"]["name"], PATHINFO_FILENAME);
             //取得圖片副檔名
-            $fileExt = pathinfo($_FILES["product_image"]["name"], PATHINFO_EXTENSION);
+            $fileExt = pathinfo($_FILES["product_img"]["name"], PATHINFO_EXTENSION);
             $fileImg = $fileName.'.'.$fileExt;
-            $from = $_FILES["product_image"]["tmp_name"];//暫存檔名稱
+            $from = $_FILES["product_img"]["tmp_name"];//暫存檔名稱
             $to = $dir.$fileImg;//檔案名稱
             copy($from,$to);
-            $products->bindValue(":product_image",$fileImg);
+            $products->bindValue(":product_img",$fileImg);
         }else{
-            $products->bindValue(":product_image",'');
+            $products->bindValue(":product_img",'');
         }
     
         $products->execute();
