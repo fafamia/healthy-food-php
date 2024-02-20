@@ -10,7 +10,7 @@ $member_password = $_POST["memPsw"];
 
 $errMsg = "";
 try {
-    require_once("../connect_chd104g3.php");
+    require_once("../../connect_chd104g3.php");
 
     $sql = "select * from `members` where member_email=:memId and member_password=:memPsw";
 

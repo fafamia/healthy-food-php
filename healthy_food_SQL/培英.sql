@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 `member_addr` VARCHAR(100) NOT NULL,
 `member_total_amount` INT,
 `member_time` DATETIME NOT NULL,
-`member_photo` VARCHAR(20) DEFAULT 'member_1',
+`member_photo` VARCHAR(20) DEFAULT 'member_1.jpg',
 `member_status` TINYINT,
 CONSTRAINT fk_members_member_level FOREIGN KEY(member_level) REFERENCES member_level(level_no)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
