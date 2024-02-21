@@ -10,8 +10,8 @@
         $sql = "INSERT INTO prodgroup (prodgroup_name,prodgroup_start,prodgroup_end) VALUES (:name,:start,:end)";
         $prodgroups = $pdo->prepare($sql);
         $prodgroups->bindValue(":name", $productGroup["prodgroup_name"], PDO::PARAM_STR);
-$prodgroups->bindValue(":start", $productGroup["prodgroup_start"], PDO::PARAM_STR);
-$prodgroups->bindValue(":end", $productGroup["prodgroup_end"], PDO::PARAM_STR);
+        $prodgroups->bindValue(":start", $productGroup["prodgroup_start"], PDO::PARAM_STR);
+        $prodgroups->bindValue(":end", $productGroup["prodgroup_end"], PDO::PARAM_STR);
         $prodgroups->execute();
         $lastInsertId = $pdo->lastInsertId();
 
