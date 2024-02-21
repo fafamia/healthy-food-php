@@ -332,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `prodgroup_details`(
     `product_no` int NOT NULL,
     `prodgroup_name` varchar(20) NOT NULL,
     `prodgroup_sale_price` int,
-    PRIMARY KEY (`prodgroup_no`,`product_no`),
+    PRIMARY KEY (`prodgroup_no`),
     FOREIGN KEY (`prodgroup_no`) REFERENCES `prodgroup`(`prodgroup_no`),
     FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
