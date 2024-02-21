@@ -1,5 +1,4 @@
 <?php
-
 try {
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
@@ -15,5 +14,4 @@ try {
     $result = ["error" => true, "msg"=>$e->getMessage()];
 }
 echo json_encode($result);
-
 ?>
