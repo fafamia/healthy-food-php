@@ -290,7 +290,7 @@ INSERT INTO `product_tag` (`product_tag_name`) VALUES ('NEW');
 -- --------------------------------------------------------
 -- 商品 `product`
 CREATE TABLE IF NOT EXISTS `product`(
-    `product_no` int NOT NULL ,
+    `product_no` int NOT NULL AUTO_INCREMENT,
     `product_class_no` int NOT NULL,
     `product_tag_no` int,
     `product_name` varchar(20) NOT NULL,
