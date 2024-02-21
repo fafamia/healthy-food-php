@@ -22,7 +22,7 @@
         $products->bindValue(":product_status",$_POST["product_status"]);
         //圖片上傳檔案位置
         if(isset($_FILES["product_img"]) && $_FILES["product_img"]["error"] === 0){
-            $dir = "../../../images/product/";
+            $dir = "../../../image/product/";
             if(!file_exists($dir)){
                 mkdir($dir,0755,true);
             }
