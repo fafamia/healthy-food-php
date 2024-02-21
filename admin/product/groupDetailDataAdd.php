@@ -8,6 +8,9 @@ try {
 
     // 檢查所需的鍵是否已設定
     if (isset($_POST["prodgroup_no"]) && isset($_POST["product_no"]) && isset($_POST["prodgroup_name"]) && isset($_POST["prodgroup_sale_price"])) {
+        // 解析以逗號分隔的商品編號字符串
+        $product_nos = explode(",", $_POST["product_nos"]);
+        foreach ($product_nos as $product_no) {
         // 使用預處理語句來防止 SQL 注入攻擊
         $sql = "INSERT INTO prodgroup_details (prodgroup_no, product_no, prodgroup_name, prodgroup_sale_price) VALUES (:prodgroup_no, :product_no, :prodgroup_name, :prodgroup_sale_price)";
         $groupdetails = $pdo->prepare($sql);
@@ -20,7 +23,7 @@ try {
 
         // 執行查詢
         $groupdetails->execute();
-
+}
         // 檢查是否成功插入資料
         if ($groupdetails->rowCount() > 0) {
             $result = ["error" => false, "msg" => "新增成功"];
