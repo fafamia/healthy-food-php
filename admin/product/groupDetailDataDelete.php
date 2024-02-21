@@ -17,4 +17,5 @@
         $result = ["error" => true, "msg"=>$e->getMessage()];
     }
     echo json_encode($result);
+    
 ?>
