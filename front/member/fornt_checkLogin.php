@@ -11,9 +11,7 @@ $token = $data["storageToken"]; // 從解碼後的數據中獲取token
 try {
     require_once("../../connect_chd104g3.php");
 
-    // 查询数据库验证token
-    // 注意：这里的SQL查询只是一个示例，您需要根据实际情况调整
-    $sql = "SELECT * FROM members WHERE member_no = :token";
+    $sql = "SELECT `member_no`, `member_level`, `member_name`, `member_email`, `member_tel`, `member_birth`, `member_county`, `member_city`, `member_addr`, `member_total_amount`, `member_time`, `member_photo`, `member_status` FROM members WHERE member_no = :token";
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':token', $token);
     $stmt->execute();
@@ -28,7 +26,7 @@ try {
     }
 } catch (PDOException $e) {
     echo json_encode([
-        "message" => "数据库错误: " . $e->getMessage(),
+        "message" => "數據庫錯誤: " . $e->getMessage(),
         "status" => "error",
         "line" => $e->getLine()
     ]);

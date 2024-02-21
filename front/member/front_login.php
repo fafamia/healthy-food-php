@@ -12,7 +12,7 @@ $errMsg = "";
 try {
     require_once("../../connect_chd104g3.php");
 
-    $sql = "select * from `members` where member_email=:memId and member_password=:memPsw";
+    $sql = "SELECT `member_no`, `member_level`, `member_name`, `member_email`, `member_tel`, `member_birth`, `member_county`, `member_city`, `member_addr`, `member_total_amount`, `member_time`, `member_photo`, `member_status` from `members` where member_email=:memId and member_password=:memPsw";
 
     $members = $pdo->prepare($sql); //先編譯好
     $members->bindValue(":memId", $member_email); //代入資料
