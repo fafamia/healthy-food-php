@@ -19,8 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $extension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);
 
 // ---------指定要存的圖片路徑---------------------
-        // $targetDirectory = 'C:/Users/T14 Gen 3/Desktop/admin/src/assets/images/banner/';  //筆電
-        $targetDirectory = 'D:/Users/user/Desktop/admin-healthy-food/src/assets/images/banner/';  // 家裡
+        $targetDirectory = 'C:/Users/T14 Gen 3/Desktop/admin/src/assets/images/banner/';  //筆電
         // $targetDirectory = '../img/';  //佈署
 // ------------------------------------------------
 
