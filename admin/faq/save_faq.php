@@ -21,28 +21,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $key = $_POST['key'];
 
         try {
-            // 在插入之前，通過 question_class 獲取 faq_class
-            $checkQuery = $pdo->prepare("SELECT * FROM question_class WHERE question_class = :question_class");
-            $checkQuery->bindParam(':question_class', $question_class);
-            $checkQuery->execute();
+           // 在插入之前，通過 question_class 獲取對應的 question_no
+$checkQuery = $pdo->prepare("SELECT `question_no` FROM `question_class` WHERE `question_class` = :question_class");
+$checkQuery->bindParam(':question_class', $question_class);
+$checkQuery->execute();
 
-            if ($checkQuery->rowCount() > 0) {
-                // question_class 已存在，可以插入 faq 資料
-                $result = $checkQuery->fetch(PDO::FETCH_ASSOC);
-                $faq_class = $result['question_no']; // 使用 question_no，這是 question_class 的主鍵
+if ($checkQuery->rowCount() > 0) {
+    // question_class 存在，可以插入 faq 資料
+    $result = $checkQuery->fetch(PDO::FETCH_ASSOC);
+    $faq_class = $result['question_no'];
 
-                $query = $pdo->prepare("INSERT INTO `faq` (`faq_class`, `question`, `ans`, `key`) VALUES (:faq_class, :question, :ans, :key)");
-                $query->bindParam(':faq_class', $faq_class);
-                $query->bindParam(':question', $question);
-                $query->bindParam(':ans', $ans);
-                $query->bindParam(':key', $key);
-                $query->execute();
-                echo json_encode(['success' => true, 'message' => '保存成功']);
-            } else {
-                $errorMessage = '保存失败: question_class 不存在';
-                echo json_encode(['success' => false, 'message' => $errorMessage]);
-                error_log($errorMessage); // 将错误信息记录到 PHP 错误日志中
-            }
+    $query = $pdo->prepare("INSERT INTO `faq` (`faq_class`, `question`, `ans`, `key`) VALUES (:faq_class, :question, :ans, :key)");
+    $query->bindParam(':faq_class', $faq_class);
+    $query->bindParam(':question', $question);
+    $query->bindParam(':ans', $ans);
+    $query->bindParam(':key', $key);
+    $query->execute();
+    echo json_encode(['success' => true, 'message' => '保存成功']);
+} else {
+    $errorMessage = '保存失败: question_class 不存在';
+    error_log($errorMessage);
+    echo json_encode(['success' => false, 'message' => $errorMessage]);
+}
+
         } catch (PDOException $e) {
             $errorMessage = '保存失敗: ' . $e->getMessage();
             echo json_encode(['success' => false, 'message' => $errorMessage]);
