@@ -1,17 +1,11 @@
 <?php
-$host = "localhost";
-$dbname = "food";
-$username = "root";
-$password = "";
-
-// 建立與資料庫的連接
-$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
 $productClass = json_decode(file_get_contents('php://input'), true);
 try {
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    require_once("../../connect_chd104g3.php");
 
     // 準備 SQL 語句並綁定參數
     $sql = "INSERT INTO product_class (product_class_name) VALUES (:name)";

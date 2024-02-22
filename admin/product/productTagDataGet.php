@@ -11,7 +11,7 @@ try {
     $productTags = $pdo->query($sql);
     $productTagRows = $productTags->fetchAll(PDO::FETCH_ASSOC);
     $result = ["error" => false, "msg"=>"", "productTags"=>$productTagRows];
-
+    header('Content-Type: application/json');
 } catch (PDOException $e) {
     $result = ["error" => true, "msg"=>$e->getMessage()];
 }

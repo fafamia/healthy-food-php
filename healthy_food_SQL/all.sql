@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `webmaster` (
 
 INSERT INTO `webmaster` 
 (`master_name`, `master_account`, `master_password`, `master_email`) VALUES
-('于靖','bi116217','bi116217','bi116217@gmail.com'),
+('于靖','bill6217','bill6217','bill6217@gmail.com'),
 ('培英','fafamia','fafamia','fafamia@gmail.com'),
 ('莘慈','alucky36572','alucky36572','alucky36572@gmail.com'),
 ('佳容','covncovy','covncovy','covncovy@gmail.com'),
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `members` (
 `member_addr` VARCHAR(100) NOT NULL,
 `member_total_amount` INT,
 `member_time` DATETIME NOT NULL,
-`member_photo` VARCHAR(20) DEFAULT 'member_1',
+`member_photo` VARCHAR(20) DEFAULT 'member_1.jpg',
 `member_status` TINYINT,
 CONSTRAINT fk_members_member_level FOREIGN KEY(member_level) REFERENCES member_level(level_no)
 )ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
@@ -156,8 +156,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+08:00";
 
-CREATE DATABASE IF NOT EXISTS `food` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `food`;
 
 -- 熱門食譜
 
@@ -290,7 +288,7 @@ INSERT INTO `product_tag` (`product_tag_name`) VALUES ('NEW');
 -- --------------------------------------------------------
 -- 商品 `product`
 CREATE TABLE IF NOT EXISTS `product`(
-    `product_no` int NOT NULL ,
+    `product_no` int NOT NULL AUTO_INCREMENT,
     `product_class_no` int NOT NULL,
     `product_tag_no` int,
     `product_name` varchar(20) NOT NULL,
@@ -334,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `prodgroup_details`(
     `product_no` int NOT NULL,
     `prodgroup_name` varchar(20) NOT NULL,
     `prodgroup_sale_price` int,
-    PRIMARY KEY (`prodgroup_no`,`product_no`),
+    PRIMARY KEY (`prodgroup_no`),
     FOREIGN KEY (`prodgroup_no`) REFERENCES `prodgroup`(`prodgroup_no`),
     FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
