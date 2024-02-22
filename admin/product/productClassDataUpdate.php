@@ -1,15 +1,10 @@
 <?php
-$host = "localhost";
-$dbname = "food";
-$username = "root";
-$password = "";
-$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $productClass = json_decode(file_get_contents('php://input'), true);
 try {
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-    // require_once("../connect_chd104g3.php");
+    require_once("../../connect_chd104g3.php");
 
     $sql = "UPDATE product_class SET product_class_name = :product_class_name  WHERE product_class_no = :product_class_no";
     $prodclass = $pdo->prepare($sql);
