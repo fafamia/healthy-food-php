@@ -351,7 +351,7 @@ VALUES
 -- 常見問題分類
 CREATE TABLE IF NOT EXISTS `question_class` (
   `question_no` INT NOT NULL AUTO_INCREMENT,
-  `question_name` varchar(100),
+  `question_class` varchar(100),
   PRIMARY KEY (`question_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -365,6 +365,17 @@ CREATE TABLE IF NOT EXISTS `faq` (
   PRIMARY KEY (`faq_no`),
   FOREIGN KEY (`faq_class`) REFERENCES `question_class` (`question_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 插入常見問題分類
+INSERT INTO `question_class` (`question_class`) VALUES ('付款問題');
+
+-- 插入常見問題
+INSERT INTO `faq` (`question`, `faq_class`, `ans`, `key`) VALUES
+('如何付款?', 1, '1.信用卡即時線上一次刷卡付款<br>2.ATM付款<br>3.LINE Pay', '付款');
+
+INSERT INTO `faq` (`question`, `faq_class`, `ans`, `key`) VALUES
+('運費怎麼計算？可以合併運費嗎？', 1, '運費的計算方式取決於購物車中的商品總重量、運送地址、所選擇的運送方式等因素。我們的網站提供了標準運費，同時在特定條件下，購物滿額可能享有免運費優惠。您可以在結帳頁面查看確切的運費金額。合併運費方面，我們很抱歉目前無法提供此服務。每筆訂單的運費是根據購物車中商品的總重量計算的。', '運費');
+
 
 -- 專欄分類
 CREATE TABLE IF NOT EXISTS `article_class` (
@@ -383,12 +394,13 @@ CREATE TABLE IF NOT EXISTS `article_overview` (
   `cover_photo` varchar(30),
   `content` datetime,
   `creation_time` datetime,
+  `article_status` tinyint,
   PRIMARY KEY (`article_no`),
   FOREIGN KEY (`article_class`) REFERENCES `article_class` (`category_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `article_overview` (`article_class`, `article_title`, `cover_photo`) VALUES
-(1, '飲食健康：探索均衡飲食的奧秘', 'article1.jpg');
+INSERT INTO `article_overview` (`article_class`, `article_title`, `content`,`article_status`) VALUES
+(1,'飲食健康：探索均衡飲食的奧秘', '2024-01-01', '上架');
 
 -- 推薦專欄
 CREATE TABLE IF NOT EXISTS `featured_columns` (
@@ -397,6 +409,7 @@ CREATE TABLE IF NOT EXISTS `featured_columns` (
   PRIMARY KEY (`featured_no`),
   FOREIGN KEY (`article_no`) REFERENCES `article_overview` (`article_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 
 
