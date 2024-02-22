@@ -14,7 +14,7 @@ $sql = "SELECT * FROM product WHERE product_no IN (SELECT product_no FROM prodgr
 $stmt = $pdo->prepare($sql);
 
 // 綁定參數
-$stmt->bindValue(":prodgroup_no", 6); // 假設您從 URL 中獲取 prodgroup_no
+$stmt->bindValue(":prodgroup_no", 2); // 假設您從 URL 中獲取 prodgroup_no
 
 // 執行查詢
 $stmt->execute();
