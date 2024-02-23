@@ -6,9 +6,9 @@
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
         require_once("../../connect_chd104g3.php");
     
-        $sql = "DELETE FROM prodgroup_details WHERE prodgroup_no = :prodgroup_no";
+        $sql = "DELETE FROM prodgroup_details WHERE prodgroup_details_no = :prodgroup_details_no";
         $groupdetails = $pdo->prepare($sql);
-        $groupdetails->bindValue(":prodgroup_no",$groupDetail["prodgroup_no"]);
+        $groupdetails->bindValue(":prodgroup_details_no",$groupDetail["prodgroup_details_no"]);
         $groupdetails->execute();
         $rowCount = $groupdetails->rowCount();
 

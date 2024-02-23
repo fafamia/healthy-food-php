@@ -337,10 +337,11 @@ CREATE TABLE IF NOT EXISTS `prodgroup_details`(
     FOREIGN KEY (`product_name`) REFERENCES `product`(`product_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO prodgroup_details
-(`prodgroup_no`,`product_name`)
+INSERT INTO `prodgroup_details`
+( `prodgroup_no`,`product_name`,`prodgroup_name`)
 VALUES
-('1','南瓜蔬食調理包');
+('1','南瓜蔬食調理包','首頁推薦商品');
+
 
 -- ---------------------柏儒-----------------------
 
