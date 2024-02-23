@@ -331,19 +331,20 @@ VALUES
 -- 商品群組明細 `prodgroup_details`
 DROP TABLE IF EXISTS `prodgroup_details`;
 CREATE TABLE IF NOT EXISTS `prodgroup_details`(
-    `prodgroup_no` int NOT NULL AUTO_INCREMENT,
+    `prodgroup_details_no` int NOT NULL AUTO_INCREMENT,
+    `prodgroup_no` int NOT NULL ,
     `product_name` varchar(100) NOT NULL,
     `prodgroup_name` varchar(20) NOT NULL,
     `prodgroup_sale_price` int,
-    PRIMARY KEY (`prodgroup_no`),
+    PRIMARY KEY (`prodgroup_details_no`),
     FOREIGN KEY (`prodgroup_no`) REFERENCES `prodgroup`(`prodgroup_no`),
     FOREIGN KEY (`product_name`) REFERENCES `product`(`product_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `prodgroup_details`
-(`product_name`,`prodgroup_name`)
+( `prodgroup_no`,`product_name`,`prodgroup_name`)
 VALUES
-('南瓜蔬食調理包','首頁推薦商品');
+('1','南瓜蔬食調理包','首頁推薦商品');
 
 
 -- ---------------------柏儒-----------------------
