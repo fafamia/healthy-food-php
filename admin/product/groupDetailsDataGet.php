@@ -12,7 +12,7 @@ try {
     $prodgroup_rows = $prodgroup_stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // 取得 product 表格中的 product_no 和 product_name
-    $product_sql = "SELECT product_name FROM product";
+    $product_sql = "SELECT product_no, product_name FROM product";
     $product_stmt = $pdo->query($product_sql);
     $product_rows = $product_stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -26,11 +26,10 @@ try {
     //     $row['product_nos'] = explode(',', $row['product_nos']);
     // }
 
-     // 取得 prodgroup_details 表格中的所有欄位資訊
-     $groupdetails_sql = "SELECT * FROM prodgroup_details"; 
-     $groupdetails_stmt = $pdo->query($groupdetails_sql);
-     $groupdetails_rows = $groupdetails_stmt->fetchAll(PDO::FETCH_ASSOC);
- 
+    // 取得 prodgroup_details 表格中的所有欄位資訊
+    $groupdetails_sql = "SELECT * FROM prodgroup_details"; 
+    $groupdetails_stmt = $pdo->query($groupdetails_sql);
+    $groupdetails_rows = $groupdetails_stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // 將取得的資料整合成一個統一的數據結構
     $result = [
