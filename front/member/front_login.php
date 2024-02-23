@@ -1,5 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // 确保这里的域名与前端应用匹配，且没有尾随斜线
+header("Access-Control-Allow-Origin: http://localhost:5173"); // 确保这里的域名与前端应用匹配，且没有尾随斜线
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Credentials:true");
 header("Content-Type:application/json;charset=utf-8");
