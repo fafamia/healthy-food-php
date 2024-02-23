@@ -291,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `product`(
     `product_no` int NOT NULL AUTO_INCREMENT,
     `product_class_no` int NOT NULL,
     `product_tag_no` int,
-    `product_name` varchar(100) NOT NULL,
+    `product_name` varchar(20) NOT NULL,
     `product_info` varchar(200),
     `product_loc` varchar(20),
     `product_standard` varchar(50),
@@ -303,9 +303,7 @@ CREATE TABLE IF NOT EXISTS `product`(
     FOREIGN KEY (`product_class_no`) REFERENCES `product_class`(`product_class_no`),
     FOREIGN KEY (`product_tag_no`) REFERENCES `product_tag`(`product_tag_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 ALTER TABLE product ADD INDEX product_name_index (product_name);
-
 
 INSERT INTO `product` (`product_no`,`product_class_no`, `product_tag_no`, `product_name`, `product_info`, `product_loc`, `product_standard`, `product_content`, `product_price`, `product_img`, `product_status`)
 VALUES (1001,'1', '1','南瓜蔬食調理包', '這款調理包是忙碌生活中的完美選擇，主要以新鮮南瓜為基底，搭配多種營養豐富的蔬菜。方便快捷的料理方式，不僅省時也兼顧健康，適合素食者和尋求健康飲食的消費者。', '桃園', '300g/包', '每份量： 100 克、熱量： 120 大卡、脂肪： 2 克、膽固醇： 60 毫克、鈉： 70 毫克、碳水化合物： 0 克', '160', 'pumpkin_cover.png', '2');
@@ -327,24 +325,23 @@ VALUES
 ('首頁推薦商品','2024-02-06','2024-12-31');
 
 
--- --------------------------------------------------------
--- 商品群組明細 `prodgroup_details`
-DROP TABLE IF EXISTS `prodgroup_details`;
+-- 商品群組明細 prodgroup_details
+DROP TABLE IF EXISTS `prodgroup_details_no`;
 CREATE TABLE IF NOT EXISTS `prodgroup_details`(
-    `prodgroup_no` int NOT NULL AUTO_INCREMENT,
+    `prodgroup_details_no` int NOT NULL AUTO_INCREMENT,
+    `prodgroup_no` int NOT NULL ,
     `product_name` varchar(100) NOT NULL,
     `prodgroup_name` varchar(20) NOT NULL,
     `prodgroup_sale_price` int,
-    PRIMARY KEY (`prodgroup_no`),
+    PRIMARY KEY (`prodgroup_details_no`),
     FOREIGN KEY (`prodgroup_no`) REFERENCES `prodgroup`(`prodgroup_no`),
     FOREIGN KEY (`product_name`) REFERENCES `product`(`product_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `prodgroup_details`
-(`product_name`,`prodgroup_name`)
+INSERT INTO prodgroup_details
+(`prodgroup_no`,`product_name`)
 VALUES
-('南瓜蔬食調理包','首頁推薦商品');
-
+('1','南瓜蔬食調理包');
 
 -- ---------------------柏儒-----------------------
 
