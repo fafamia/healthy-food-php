@@ -19,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $extension = pathinfo($uploadedFileName, PATHINFO_EXTENSION);
 
 // ---------指定要存的圖片路徑---------------------
-        $targetDirectory = 'C:/Users/T14 Gen 3/Desktop/admin/src/assets/images/banner/';  //筆電
-        // $targetDirectory = '../img/';  //佈署
+        // $targetDirectory = 'C:/Users/T14 Gen 3/Desktop/admin/src/assets/images/banner/';  //筆電
+        $targetDirectory = 'https://tibamef2e.com/chd104/g3/images/home/banner/';  //佈署
 // ------------------------------------------------
 
         // 存進資料庫的檔案名稱 "banner"+檔名+副檔名
