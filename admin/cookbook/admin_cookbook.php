@@ -1,41 +1,20 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+try {
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    header('Content-Type: application/json; charset=utf-8');
 
+    require_once("../../connect_chd104g3.php");
 
-header('Content-Type: application/json; charset=utf-8');
+    $sql = "SELECT * FROM recipe";
 
-$servername = "localhost"; 
-$username = "root";    
-$password = "";    
-$dbname = "food";        
-
-// 创建连接
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// 检查连接是否成功
-if ($conn->connect_error) {
-    die("連接失敗: " . $conn->connect_error);
+    $recipe = $pdo->query($sql);
+    $recipeRows = $recipe->fetchAll(PDO::FETCH_ASSOC);
+    $result = ["error" => false, "msg"=>"", "recipe"=>$recipeRows];
+    header('Content-Type: application/json');
+} catch (PDOException $e) {
+    $result = ["error" => true, "msg"=>$e->getMessage()];
 }
-    // }else{
-//     echo "連接成功";
-// }
-
-// 执行查询
-$sql = "SELECT * FROM recipe";
-$result = $conn->query($sql);
-
-// 将查询结果转换为关联数组，并将其转换为 JSON 格式
-$recipe = array();
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $recipe[] = $row;
-    }
-}
-echo json_encode($recipe);
-
-// 关闭连接
-$conn->close();
+echo json_encode($result);
 ?>
-

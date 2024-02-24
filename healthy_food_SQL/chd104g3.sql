@@ -170,7 +170,7 @@ CREATE TABLE `recipe`(
     `recipe_time` VARCHAR(10),
     `recipe_ingredient` VARCHAR(300),
     `recipe_info` VARCHAR(500),
-    `recipe_img` VARCHAR(20),
+    `recipe_img` VARCHAR(100),
     `recipe_creation_time` DATETIME,
     `recipe_status` TINYINT,
     `recipe_like` INT,
