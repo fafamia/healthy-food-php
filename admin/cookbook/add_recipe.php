@@ -1,68 +1,46 @@
 <?php
-// 設定 CORS 標頭，允許從任何來源進行跨域請求
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+try {
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+    header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    header('Content-Type: application/json');
+    require_once("../../connect_chd104g3.php");
 
-// 检查请求方法是否为 POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // 检查是否接收到了各项数据
-    if (isset($_POST['recipe_name']) && isset($_POST['recipe_people']) && isset($_POST['recipe_time']) && isset($_POST['recipe_ingredient']) && isset($_POST['recipe_info']) && isset($_POST['recipe_status']) && isset($_FILES['recipe_img'])) {
-        // 生成唯一的文件名
-        $fileName = uniqid() . '_' . $_FILES['recipe_img']['name'];
-        // 指定文件上传目录
-        $targetDir = "admin-healthy-food/src/assets/images/cookbook/";
-        
+    $sql = "INSERT INTO recipe (recipe_name, recipe_people, recipe_time, recipe_ingredient, recipe_info, recipe_creation_time, recipe_status, recipe_img)
+            VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)";
 
-        // 将文件移动到上传目录
-        $filePath = $targetDir . $fileName;
-        if (move_uploaded_file($_FILES['recipe_img']['tmp_name'], $filePath)) {
-            // 连接数据库
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "food";
+    $stmt = $pdo->prepare($sql);
+    // 用 $_POST 接收 input 的資料
+    $stmt->bindValue(1, $_POST["recipe_name"]);
+    $stmt->bindValue(2, $_POST["recipe_people"]);
+    $stmt->bindValue(3, $_POST["recipe_time"]);
+    $stmt->bindValue(4, $_POST["recipe_ingredient"]);
+    $stmt->bindValue(5, $_POST["recipe_info"]);
+    $stmt->bindValue(6, $_POST["recipe_status"]);
 
-            try {
-                $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                // 设置 PDO 错误模式为异常
-                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                // 准备 SQL 语句
-                $sql = "INSERT INTO recipe (recipe_name, recipe_people, recipe_time, recipe_ingredient, recipe_info, recipe_creation_time, recipe_status, recipe_img)
-                        VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)";
-                
-                // 创建预处理语句
-                $stmt = $conn->prepare($sql);
-
-                // 绑定参数
-                $stmt->bindParam(1, $_POST['recipe_name']);
-                $stmt->bindParam(2, $_POST['recipe_people']);
-                $stmt->bindParam(3, $_POST['recipe_time']);
-                $stmt->bindParam(4, $_POST['recipe_ingredient']);
-                $stmt->bindParam(5, $_POST['recipe_info']);
-                $stmt->bindParam(6, $_POST['recipe_status']);
-                $stmt->bindParam(7, $filePath);
-
-                // 执行预处理语句
-                $stmt->execute();
-
-                echo json_encode(array("message" => "Recipe saved successfully"));
-            } catch(PDOException $e) {
-                echo json_encode(array("message" => "Error: " . $e->getMessage()));
-            }
-
-            // 关闭数据库连接
-            $conn = null;
-        } else {
-            echo json_encode(array("message" => "Failed to move uploaded file"));
+    // 圖片上傳檔案位置
+    if (isset($_FILES["recipe_img"]) && $_FILES["recipe_img"]["error"] === 0) {
+        $dir = "../../../image/cookbook/";
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
         }
+        // 取得圖片檔名
+        $fileName = pathinfo($_FILES["recipe_img"]["name"], PATHINFO_FILENAME);
+        // 取得圖片副檔名
+        $fileExt = pathinfo($_FILES["recipe_img"]["name"], PATHINFO_EXTENSION);
+        $fileImg = $fileName . '.' . $fileExt;
+        $from = $_FILES["recipe_img"]["tmp_name"];// 暫存檔名稱
+        $to = $dir . $fileImg;// 檔案名稱
+        copy($from, $to);
+        $stmt->bindValue(7, $fileImg);
     } else {
-        // 如果缺少必要的数据，返回错误信息
-        echo json_encode(array("message" => "Missing required data"));
+        $stmt->bindValue(7, '');
     }
-} else {
-    // 如果不是 POST 请求，则返回错误信息
-    echo json_encode(array("message" => "Invalid request method"));
+
+    $stmt->execute();
+    $result = ["error" => false, "msg" => "新增成功", "recipe" => $stmt];
+} catch (PDOException $e) {
+    $result = ["error" => true, "msg" => $e->getMessage()];
 }
+echo json_encode($result);
 ?>
