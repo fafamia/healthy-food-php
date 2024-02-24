@@ -8,14 +8,14 @@ try {
 
     // 檢查是否傳遞了必要的參數
     if (
-        isset($_POST["prodgroup_details_no"]) &&
+        //isset($_POST["prodgroup_details_no"]) &&
         isset($_POST["prodgroup_no"]) &&
         isset($_POST["product_name"]) &&
         isset($_POST["prodgroup_name"]) &&
         isset($_POST["prodgroup_sale_price"])
     ) {
         // 使用預備語句來防止 SQL 注入攻擊
-        $sql = "INSERT INTO prodgroup_details (prodgroup_details_no, prodgroup_no, product_name, prodgroup_name, prodgroup_sale_price) VALUES (:prodgroup_details_no, :prodgroup_no, :product_name, :prodgroup_name, :prodgroup_sale_price)";
+        $sql = "INSERT INTO prodgroup_details (prodgroup_no, product_name, prodgroup_name, prodgroup_sale_price) VALUES (:prodgroup_no, :product_name, :prodgroup_name, :prodgroup_sale_price)";
         $groupdetails = $pdo->prepare($sql);
 
         // 綁定參數
