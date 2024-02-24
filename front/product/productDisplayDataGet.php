@@ -4,6 +4,7 @@ try {
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+    header('Content-Type: application/json');
     require_once("../../connect_chd104g3.php");
     
     $sql = "SELECT * FROM product p 
@@ -15,7 +16,6 @@ try {
     $products = $pdo->query($sql);
     $prodRows = $products->fetchAll(PDO::FETCH_ASSOC);
     $result = ["error" => false, "msg"=>"", "products"=>$prodRows];
-    header('Content-Type: application/json');
 } catch (PDOException $e) {
     $result = ["error" => true, "msg"=>$e->getMessage()];
 }
