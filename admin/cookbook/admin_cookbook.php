@@ -7,7 +7,7 @@ try {
 
     require_once("../../connect_chd104g3.php");
 
-    $sql = "SELECT * FROM recipe";
+    $sql = "SELECT * FROM recipe order by 1";
 
     $recipe = $pdo->query($sql);
     $recipeRows = $recipe->fetchAll(PDO::FETCH_ASSOC);
@@ -16,5 +16,6 @@ try {
 } catch (PDOException $e) {
     $result = ["error" => true, "msg"=>$e->getMessage()];
 }
-echo json_encode($result);
+echo json_encode($result['recipe']);
+
 ?>
