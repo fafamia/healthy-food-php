@@ -290,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `product`(
     `product_no` int NOT NULL AUTO_INCREMENT,
     `product_class_no` int NOT NULL,
     `product_tag_no` int,
-    `product_name` varchar(20) NOT NULL,
+    `product_name` varchar(100) NOT NULL,
     `product_info` varchar(200),
     `product_loc` varchar(20),
     `product_standard` varchar(50),
@@ -319,9 +319,10 @@ CREATE TABLE IF NOT EXISTS `prodgroup`(
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `prodgroup`
-(`prodgroup_name`,`prodgroup_start`,`prodgroup_end`)
+(`prodgroup_name`)
 VALUES
-('首頁推薦商品','2024-02-06','2024-12-31');
+('test');
+
 
 
 -- 商品群組明細 prodgroup_details
@@ -340,7 +341,8 @@ CREATE TABLE IF NOT EXISTS `prodgroup_details`(
 INSERT INTO `prodgroup_details`
 ( `prodgroup_no`,`product_name`,`prodgroup_name`)
 VALUES
-('1','南瓜蔬食調理包','首頁推薦商品');
+('1','南瓜蔬食調理包','test');
+
 
 
 -- ---------------------柏儒-----------------------
