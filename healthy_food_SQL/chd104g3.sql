@@ -423,25 +423,24 @@ CREATE TABLE `orders`(
 `member_name` varchar(20) NOT NULL DEFAULT '',
 `ord_name` varchar(20) NOT NULL DEFAULT '',
 `take_mail` varchar(20) NOT NULL DEFAULT '',
-`take_tal` varchar(10) NOT NULL DEFAULT '',
+`take_tel` varchar(10) NOT NULL DEFAULT '',
 `take_address` varchar(100) NOT NULL DEFAULT '',
-`ord_shipping` tinyint NOT NULL DEFAULT '0',
-`payment_status` tinyint DEFAULT '0',
-`odr_status` tinyint  DEFAULT '0',
 `delivery_fee` int,
-`odr_amount` int NOT NULL,
+`ord_amount` int NOT NULL,
 `sales_amount` int ,
-`ord_payment` int NOT NULL,
 `member_sales` DECIMAL (3,2),
+`ord_payment` int NOT NULL,
+`shipping_status` tinyint NOT NULL DEFAULT '0',
+`payment_status` tinyint DEFAULT '0',
+`ord_status` tinyint  DEFAULT '0',
 PRIMARY KEY (`ord_index`),
 -- PRIMARY KEY(`ord_no`),
 foreign key(`member_no`)references `members`(`member_no`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `orders`(`ord_no`,`ord_time`,`member_no`,`member_name`,`ord_name`,`take_mail`,`take_tal`,`take_address`,
-`ord_shipping`,`payment_status`,`odr_status`,`delivery_fee`,`odr_amount`,`sales_amount`,`ord_payment`,`member_sales`)VALUES
-(UNIX_TIMESTAMP(NOW(6)),now(),1,'王小明','王小明','aa@example.com','0912345678','台北市中正區忠孝西路100號',0,0,0,60,3000,
-10,2745,0.9);
+INSERT INTO `orders`(`ord_no`,`ord_time`,`member_no`,`member_name`,`ord_name`,`take_mail`,`take_tel`,`take_address`,`delivery_fee`,`ord_amount`,`sales_amount`,`member_sales`,`ord_payment`,`shipping_status`,`payment_status`,`ord_status`)VALUES
+(UNIX_TIMESTAMP(NOW(6)),now(),1,'王小明','王小明','aa@example.com','0912345678','台北市中正區忠孝西路100號',60,3000,10,0.9,2745,
+0,0,0);
 
 -- 訂單明細 order_details
 
