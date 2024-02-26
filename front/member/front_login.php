@@ -26,12 +26,7 @@ try {
 
         $memRow = $members->fetch(PDO::FETCH_ASSOC);
 
-        //登入成功,將登入者的資料寫入cookie (cookie中寫入的資料可能會換，目前先暫時這樣)
-        setcookie("member_no", $memRow["member_no"], time() + (7 * 24 * 60 * 60));
-        setcookie("member_email", $memRow["member_email"], time() + (7 * 24 * 60 * 60));
-        setcookie("member_name", $memRow["member_name"], time() + (7 * 24 * 60 * 60));
 
-        // echo json_encode(["message" => "登入成功", "status" => "success"]);
         echo json_encode(["message" => "登入成功", "status" => "success", "member" => $memRow]);
     }
 } catch (PDOException $e) {
