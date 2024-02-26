@@ -1,20 +1,22 @@
 <?php
 header("Access-Control-Allow-Origin: *"); // 确保这里的域名与前端应用匹配，且没有尾随斜线
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
-header("Access-Control-Allow-Credentials:true");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 header("Content-Type:application/json;charset=utf-8");
+$json = file_get_contents('php://input');
+$data = json_decode($json, true);
 
 //前台抓到的資料
-$member_name = $_POST['name'];
-$member_tel = $_POST['tel'];
-$member_email = $_POST['email'];
-$member_password = $_POST['au4a83'];
+$member_name = $data['name'];
+$member_tel = $data['tel'];
+$member_email = $data['email'];
+$member_password = $data['au4a83'];
 $member_level = 1;
 $member_total_amount = 0;
 $member_status = 1;
-$member_county = $_POST['county'];
-$member_city = $_POST['city'];
-$member_addr = $_POST['addr'];
+$member_county = $data['county'];
+$member_city = $data['city'];
+$member_addr = $data['addr'];
 $member_time = date('Y-m-d H:i:s');
 //返回的message
 $msg = "";
@@ -33,7 +35,7 @@ try {
     } else {
 
         //新增用戶資料至資料庫
-        $sql = "INSERT INTO `food`.`members` (`member_level`, `member_password`, `member_name`, `member_email`, `member_tel`, `member_county`, `member_city`, `member_addr`, `member_total_amount`, `member_time`, `member_status`) VALUES (:member_level, :member_password, :member_name, :member_email, :member_tel, :member_county, :member_city, :member_addr, :member_total_amount, :member_time, :member_status)";
+        $sql = "INSERT INTO `members` (`member_level`, `member_password`, `member_name`, `member_email`, `member_tel`, `member_county`, `member_city`, `member_addr`, `member_total_amount`, `member_time`, `member_status`) VALUES (:member_level, :member_password, :member_name, :member_email, :member_tel, :member_county, :member_city, :member_addr, :member_total_amount, :member_time, :member_status)";
 
         $members = $pdo->prepare($sql); //先編譯好
         // 代入資料

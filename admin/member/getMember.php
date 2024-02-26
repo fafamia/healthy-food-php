@@ -6,12 +6,12 @@ header("Content-Type:application/json;charset=utf-8");
 
 try {
     require_once("../../connect_chd104g3.php");
-    $sql = "SELECT * FROM quiz_game";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
+    $sql = "SELECT * FROM `members`";
+    $members = $pdo->prepare($sql);
+    $members->execute();
 
-    $gameData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($gameData);
+    $membersData = $members->fetchAll(PDO::FETCH_ASSOC);
+    echo json_encode($membersData);
 } catch (PDOException $e) {
     $msg .= "錯誤 : " . $e->getMessage() . "<br>";
     $msg .= "行號 : " . $e->getLine() . "<br>";
