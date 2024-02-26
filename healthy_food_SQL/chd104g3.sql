@@ -163,9 +163,9 @@ DROP TABLE IF EXISTS `recipe`;
 CREATE TABLE `recipe`(
 	`recipe_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `recipe_class_no` INT NOT NULL,
-    `project_no` INT,
     `recipe_name` VARCHAR(20),
-    `recipe_recommend` VARCHAR(20),
+    `recipe_text` VARCHAR(100),
+    `recipe_recommend` VARCHAR(50),
     `recipe_people` VARCHAR(10),
     `recipe_time` VARCHAR(10),
     `recipe_ingredient` VARCHAR(300),
@@ -176,12 +176,12 @@ CREATE TABLE `recipe`(
     `recipe_like` INT,
     `comment_num` INT,
     
-    FOREIGN KEY (recipe_class_no) REFERENCES recipe_class(recipe_class_no),
-    FOREIGN KEY (project_no) REFERENCES project(project_no)
+    FOREIGN KEY (recipe_class_no) REFERENCES recipe_class(recipe_class_no)
 );
 
-INSERT INTO `recipe` (`recipe_name`,`recipe_recommend`,`recipe_people`,`recipe_time`,`recipe_ingredient`,`recipe_info`,`recipe_creation_time`)VALUES
+INSERT INTO `recipe` (`recipe_name`,`recipe_text`,`recipe_recommend`,`recipe_people`,`recipe_time`,`recipe_ingredient`,`recipe_info`,`recipe_creation_time`)VALUES
 ('素食彩虹沙拉',
+'五彩繽紛的蔬果饗宴',
 '萵苣',
 '四人份',
 '20分鐘',
