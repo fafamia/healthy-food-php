@@ -1,5 +1,4 @@
 <?php
-    $productTag = json_decode(file_get_contents('php://input'), true);
     try{
         
         header("Access-Control-Allow-Origin: *");
@@ -7,6 +6,8 @@
         header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
         header('Content-Type: application/json');
         require_once("../../connect_chd104g3.php");
+        // JSON paload
+        $productTag = json_decode(file_get_contents('php://input'), true);
     
         $sql = "INSERT INTO product_tag (product_tag_name) VALUES (:name)";
         $productTags = $pdo->prepare($sql);
