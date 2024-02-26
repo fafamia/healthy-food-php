@@ -321,7 +321,13 @@ CREATE TABLE IF NOT EXISTS `prodgroup`(
 INSERT INTO `prodgroup`
 (`prodgroup_name`)
 VALUES
-('test');
+('test'),
+('體重過輕'),
+('健康體位'),
+('體重過重'),
+('基礎代謝<1600'),
+('基礎代謝<2000'),
+('2000<基礎代謝');
 
 
 
