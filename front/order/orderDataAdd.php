@@ -10,9 +10,9 @@
         // JSON paload
         $orderData = json_decode(file_get_contents('php://input'), true);
         $sqlOrder = "INSERT INTO orders (
-            ord_no,ord_time, member_no, member_name, ord_name, take_mail, take_tal, take_address, ord_shipping, payment_status, delivery_fee, odr_amount, sales_amount, ord_payment) 
+            ord_no,ord_time, member_no, member_name, ord_name, take_mail, take_tel, take_address, delivery_fee, ord_amount, sales_amount, ord_payment,shipping_status,payment_status,ord_status) 
         VALUES (
-            :ord_no,now(),:member_no,:member_name,:ord_name,:take_mail,:take_tal,:take_address,:ord_shipping,:payment_status,:delivery_fee,:odr_amount,:sales_amount,:ord_payment)";
+            :ord_no,now(),:member_no,:member_name,:ord_name,:take_mail,:take_tel,:take_address,:delivery_fee,:ord_amount,:sales_amount,:ord_payment,:shipping_status,:payment_status,:ord_status)";
         $orderDatas = $pdo->prepare($sqlOrder);
         $orderInfo = $orderData['orderInfo'];
         $userData = $orderData['userData'];
@@ -22,14 +22,15 @@
         $orderDatas->bindParam(':member_name',$userData['member_name']);
         $orderDatas->bindParam(':ord_name',$orderInfo['ord_name']);
         $orderDatas->bindParam(':take_mail',$orderInfo['take_mail']);
-        $orderDatas->bindParam(':take_tal',$orderInfo['take_tal']);
+        $orderDatas->bindParam(':take_tel',$orderInfo['take_tel']);
         $orderDatas->bindParam(':take_address',$orderInfo['take_address']);
-        $orderDatas->bindParam(':ord_shipping',$orderInfo['ord_shipping']);
-        $orderDatas->bindParam(':payment_status',$orderInfo['payment_status']);
         $orderDatas->bindParam(':delivery_fee',$orderInfo['delivery_fee']);
-        $orderDatas->bindParam(':odr_amount',$orderInfo['odr_amount']);
+        $orderDatas->bindParam(':ord_amount',$orderInfo['ord_amount']);
         $orderDatas->bindParam(':sales_amount',$orderInfo['sales_amount']);
         $orderDatas->bindParam(':ord_payment',$orderInfo['ord_payment']);
+        $orderDatas->bindParam(':shipping_status',$orderInfo['shipping_status']);
+        $orderDatas->bindParam(':payment_status',$orderInfo['payment_status']);
+        $orderDatas->bindParam(':ord_status',$orderInfo['ord_status']);
         if (!$orderDatas->execute()) {
             print_r($orderDatas->errorInfo());
         }
