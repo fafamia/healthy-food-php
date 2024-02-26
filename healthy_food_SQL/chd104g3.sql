@@ -163,9 +163,9 @@ DROP TABLE IF EXISTS `recipe`;
 CREATE TABLE `recipe`(
 	`recipe_no` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `recipe_class_no` INT NOT NULL,
-    `project_no` INT,
     `recipe_name` VARCHAR(20),
-    `recipe_recommend` VARCHAR(20),
+    `recipe_text` VARCHAR(100),
+    `recipe_recommend` VARCHAR(50),
     `recipe_people` VARCHAR(10),
     `recipe_time` VARCHAR(10),
     `recipe_ingredient` VARCHAR(300),
@@ -176,12 +176,12 @@ CREATE TABLE `recipe`(
     `recipe_like` INT,
     `comment_num` INT,
     
-    FOREIGN KEY (recipe_class_no) REFERENCES recipe_class(recipe_class_no),
-    FOREIGN KEY (project_no) REFERENCES project(project_no)
+    FOREIGN KEY (recipe_class_no) REFERENCES recipe_class(recipe_class_no)
 );
 
-INSERT INTO `recipe` (`recipe_name`,`recipe_recommend`,`recipe_people`,`recipe_time`,`recipe_ingredient`,`recipe_info`,`recipe_creation_time`)VALUES
+INSERT INTO `recipe` (`recipe_name`,`recipe_text`,`recipe_recommend`,`recipe_people`,`recipe_time`,`recipe_ingredient`,`recipe_info`,`recipe_creation_time`)VALUES
 ('素食彩虹沙拉',
+'五彩繽紛的蔬果饗宴',
 '萵苣',
 '四人份',
 '20分鐘',
@@ -429,25 +429,24 @@ CREATE TABLE `orders`(
 `member_name` varchar(20) NOT NULL DEFAULT '',
 `ord_name` varchar(20) NOT NULL DEFAULT '',
 `take_mail` varchar(20) NOT NULL DEFAULT '',
-`take_tal` varchar(10) NOT NULL DEFAULT '',
+`take_tel` varchar(10) NOT NULL DEFAULT '',
 `take_address` varchar(100) NOT NULL DEFAULT '',
-`ord_shipping` tinyint NOT NULL DEFAULT '0',
-`payment_status` tinyint DEFAULT '0',
-`odr_status` tinyint  DEFAULT '0',
 `delivery_fee` int,
-`odr_amount` int NOT NULL,
+`ord_amount` int NOT NULL,
 `sales_amount` int ,
-`ord_payment` int NOT NULL,
 `member_sales` DECIMAL (3,2),
+`ord_payment` int NOT NULL,
+`shipping_status` tinyint NOT NULL DEFAULT '0',
+`payment_status` tinyint DEFAULT '0',
+`ord_status` tinyint  DEFAULT '0',
 PRIMARY KEY (`ord_index`),
 -- PRIMARY KEY(`ord_no`),
 foreign key(`member_no`)references `members`(`member_no`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `orders`(`ord_no`,`ord_time`,`member_no`,`member_name`,`ord_name`,`take_mail`,`take_tal`,`take_address`,
-`ord_shipping`,`payment_status`,`odr_status`,`delivery_fee`,`odr_amount`,`sales_amount`,`ord_payment`,`member_sales`)VALUES
-(UNIX_TIMESTAMP(NOW(6)),now(),1,'王小明','王小明','aa@example.com','0912345678','台北市中正區忠孝西路100號',0,0,0,60,3000,
-10,2745,0.9);
+INSERT INTO `orders`(`ord_no`,`ord_time`,`member_no`,`member_name`,`ord_name`,`take_mail`,`take_tel`,`take_address`,`delivery_fee`,`ord_amount`,`sales_amount`,`member_sales`,`ord_payment`,`shipping_status`,`payment_status`,`ord_status`)VALUES
+(UNIX_TIMESTAMP(NOW(6)),now(),1,'王小明','王小明','aa@example.com','0912345678','台北市中正區忠孝西路100號',60,3000,10,0.9,2745,
+0,0,0);
 
 -- 訂單明細 order_details
 
