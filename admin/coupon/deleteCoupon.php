@@ -1,0 +1,28 @@
+<?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header('Content-Type: application/json');
+
+try {
+    require_once("../../connect_chd104g3.php");
+
+    // 解析 JSON 數據
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $sql = "DELETE FROM `coupons` WHERE coupon_no = :coupon_no";
+    $coupon = $pdo->prepare($sql);
+
+    // 確保從解析的數據中獲取 quiz_no
+    $coupon->bindValue(":coupon_no", $data["coupon_no"]);
+
+    $coupon->execute();
+    $rowCount = $coupon->rowCount();
+
+    $result = ["error" => false, "msg" => "刪除{$rowCount}筆資料"];
+} catch (PDOException $e) {
+    $result = ["error" => true, "msg" => $e->getMessage()];
+}
+
+// 輸出結果
+echo json_encode($result);

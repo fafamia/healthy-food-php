@@ -470,26 +470,14 @@ create table `favorite`(
 `product_no`int NOT NULL,
 `product_name`varchar(20) NOT NULL DEFAULT '',
 PRIMARY KEY (`favorite_NO`),
-foreign key(`member_no`)references MEMBERS(`member_no`),
-FOREIGN KEY (`product_no`) REFERENCES `PRODUCT`(`product_no`)
+foreign key(`member_no`)references members(`member_no`),
+FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 insert into `favorite`(
 `member_no`,`product_no`,`product_name`)VALUES
 (1,1001,'南瓜蔬食調理包');
 
--- 首頁推薦商品 `FEATURED_PRODUCT`
-
-create table `FEATURED_PRODUCT`(
-`FEATURED_PRODUCT_NO`int AUTO_INCREMENT NOT NULL,
-`PRODUCT_NO`int NOT NULL,
-PRIMARY KEY (`FEATURED_PRODUCT_NO`),
-FOREIGN KEY (`PRODUCT_NO`) REFERENCES `PRODUCT`(`PRODUCT_NO`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-insert into `FEATURED_PRODUCT`(
-`PRODUCT_NO`)VALUES
-(1001);
 
 
 COMMIT;
