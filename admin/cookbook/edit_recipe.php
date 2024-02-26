@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (count($_POST) > 0) {
         $recipe_no = $_POST["recipe_no"];
         $recipe_name = $_POST["recipe_name"];
+        $recipe_recommend = $_POST["recipe_recommend"];
         $recipe_people = $_POST["recipe_people"];
         $recipe_time = $_POST["recipe_time"];
         $recipe_ingredient = $_POST["recipe_ingredient"];
@@ -38,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $sql = "UPDATE recipe 
                 SET recipe_name = :recipe_name, 
+                    recipe_recommend = :recipe_recommend,
                     recipe_people = :recipe_people,
                     recipe_time = :recipe_time,
                     recipe_ingredient = :recipe_ingredient,
@@ -48,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(":recipe_name", $recipe_name);
+        $stmt->bindValue("recipe_recommend",$recipe_recommend);
         $stmt->bindValue(":recipe_people", $recipe_people);
         $stmt->bindValue(":recipe_time", $recipe_time);
         $stmt->bindValue(":recipe_ingredient", $recipe_ingredient);

@@ -180,7 +180,7 @@ CREATE TABLE `recipe`(
     FOREIGN KEY (project_no) REFERENCES project(project_no)
 );
 
-INSERT INTO `recipe` (`recipe_name`,`recipe_recommend`,`recipe_people`,`recipe_time`,`recipe_ingredient`,`recipe_info`,`recipe_img`)VALUES
+INSERT INTO `recipe` (`recipe_name`,`recipe_recommend`,`recipe_people`,`recipe_time`,`recipe_ingredient`,`recipe_info`,`recipe_creation_time`)VALUES
 ('素食彩虹沙拉',
 '萵苣',
 '四人份',
@@ -206,7 +206,7 @@ INSERT INTO `recipe` (`recipe_name`,`recipe_recommend`,`recipe_people`,`recipe_t
 8.輕輕拌勻，確保每一個蔬菜都均勻裹上醬汁。
 9.依照口味加入適量的鹽和黑胡椒調味。
 10.即可享用美味的素食彩虹沙拉！',
-'cookbook01.jpg');
+NOW());
 
 -- 食譜分類
 
