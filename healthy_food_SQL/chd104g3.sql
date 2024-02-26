@@ -305,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `product`(
 ALTER TABLE product ADD INDEX product_name_index (product_name);
 
 INSERT INTO `product` (`product_no`,`product_class_no`, `product_tag_no`, `product_name`, `product_info`, `product_loc`, `product_standard`, `product_content`, `product_price`, `product_img`, `product_status`)
-VALUES (1001,'1', '1','南瓜蔬食調理包', '這款調理包是忙碌生活中的完美選擇，主要以新鮮南瓜為基底，搭配多種營養豐富的蔬菜。方便快捷的料理方式，不僅省時也兼顧健康，適合素食者和尋求健康飲食的消費者。', '桃園', '300g/包', '每份量： 100 克、熱量： 120 大卡、脂肪： 2 克、膽固醇： 60 毫克、鈉： 70 毫克、碳水化合物： 0 克', '160', 'pumpkin_cover.png', '2');
+VALUES (1001,'1', '1','南瓜蔬食調理包', '這款調理包是忙碌生活中的完美選擇，主要以新鮮南瓜為基底，搭配多種營養豐富的蔬菜。方便快捷的料理方式，不僅省時也兼顧健康，適合素食者和尋求健康飲食的消費者。', '桃園', '300g/包', '每份量： 100 克、熱量： 120 大卡、脂肪： 2 克、膽固醇： 60 毫克、鈉： 70 毫克、碳水化合物： 0 克', '160', 'pumpkin_cover.png', '0');
 
 
 -- --------------------------------------------------------
@@ -414,69 +414,68 @@ CREATE TABLE IF NOT EXISTS `featured_columns` (
 
 
 -- -------------------莘慈-----------------------
--- 訂單 `ORDERS`
-CREATE TABLE `ORDERS`(
-`ORD_INDEX` int AUTO_INCREMENT,
-`ORD_NO` int ,
-`USER_NO` int NOT NULL,
-`ORD_TIME` datetime NOT NULL,
-`ORD_NAME` varchar(20) NOT NULL DEFAULT '',
-`TAKE_NAME` varchar(20) NOT NULL DEFAULT '',
-`TAKE_MAIL` varchar(20) NOT NULL DEFAULT '',
-`TAKE_TEL` varchar(10) NOT NULL DEFAULT '',
-`TAKE_ADDRESS` varchar(100) NOT NULL DEFAULT '',
-`ORD_SHIPPING` tinyint NOT NULL DEFAULT '1',
-`PAYMENT_STATUS` tinyint NOT NULL DEFAULT '1',
-`ORD_STATUS` tinyint NOT NULL DEFAULT '1',
-`DELIVERY_FEE` int,
-`ORD_AMOUNT` int NOT NULL,
-`SALES_AMOUNT` int,
-`ORD_PAYMENT` int NOT NULL,
-`USER_SALES` DECIMAL (3,2),
-PRIMARY KEY (`ORD_NO`),
-UNIQUE key(`ORD_INDEX`),
-foreign key(`USER_NO`)references MEMBERS(`MEMBER_NO`)
+-- 訂單 orders
+CREATE TABLE `orders`(
+`ord_index` int AUTO_INCREMENT,
+`ord_no` int,
+`ord_time` datetime NOT NULL,
+`member_no` int NOT NULL,
+`member_name` varchar(20) NOT NULL DEFAULT '',
+`ord_name` varchar(20) NOT NULL DEFAULT '',
+`take_mail` varchar(20) NOT NULL DEFAULT '',
+`take_tal` varchar(10) NOT NULL DEFAULT '',
+`take_address` varchar(100) NOT NULL DEFAULT '',
+`ord_shipping` tinyint NOT NULL DEFAULT '0',
+`payment_status` tinyint DEFAULT '0',
+`odr_status` tinyint  DEFAULT '0',
+`delivery_fee` int,
+`odr_amount` int NOT NULL,
+`sales_amount` int ,
+`ord_payment` int NOT NULL,
+`member_sales` DECIMAL (3,2),
+PRIMARY KEY (`ord_index`),
+-- PRIMARY KEY(`ord_no`),
+foreign key(`member_no`)references `members`(`member_no`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `ORDERS`(`ORD_NO`,`USER_NO`,`ORD_TIME`,`ORD_NAME`,`TAKE_NAME`,`TAKE_MAIL`,`TAKE_TEL`,`TAKE_ADDRESS`,
-`ORD_SHIPPING`,`PAYMENT_STATUS`,`ORD_STATUS`,`DELIVERY_FEE`,`ORD_AMOUNT`,`SALES_AMOUNT`,`ORD_PAYMENT`,`USER_SALES`)VALUES
-(231231182410,1,NOW(),'王小名','王小名','aabbcc@test.com',0988123456,'桃園市中壢區成功路88號',1,1,1,60,3000,
+INSERT INTO `orders`(`ord_no`,`ord_time`,`member_no`,`member_name`,`ord_name`,`take_mail`,`take_tal`,`take_address`,
+`ord_shipping`,`payment_status`,`odr_status`,`delivery_fee`,`odr_amount`,`sales_amount`,`ord_payment`,`member_sales`)VALUES
+(UNIX_TIMESTAMP(NOW(6)),now(),1,'王小明','王小明','aa@example.com','0912345678','台北市中正區忠孝西路100號',0,0,0,60,3000,
 10,2745,0.9);
 
--- 訂單明細 `ORDER_DETAILS`
+-- 訂單明細 order_details
 
-CREATE TABLE `ORDER_DETAILS`(
-`ORD_DETAILS_NO` int AUTO_INCREMENT NOT NULL,
-`ORD_NO` int ,
-`ORD_INDEX` int NOT NULL,
-`PRODUCT_NO` int NOT NULL,
-`PRODUCT_NAME` varchar(20) NOT NULL DEFAULT '',
-`PURCHASE_COUNT` int NOT NULL,
-`PURCHASE_PRICE` int NOT NULL,
-PRIMARY KEY (`ORD_DETAILS_NO`),
-unique KEY(`ORD_INDEX`),
-FOREIGN KEY (`ORD_NO`) REFERENCES `ORDERS`(`ORD_NO`),
-FOREIGN KEY (`ORD_INDEX`) REFERENCES `ORDERS`(`ORD_INDEX`),
-FOREIGN KEY (`PRODUCT_NO`) REFERENCES `PRODUCT`(`PRODUCT_NO`)
+CREATE TABLE `order_details`(
+`ord_details_no` int AUTO_INCREMENT NOT NULL,
+`ord_index` int NOT NULL,
+`ord_no` int NOT NULL ,
+`product_no` int NOT NULL,
+`product_name` varchar(20) NOT NULL DEFAULT '',
+`product_price` int NOT NULL,
+`product_quantity` int NOT NULL,
+PRIMARY KEY (`ord_details_no`),
+-- unique KEY(`ord_index`),
+-- FOREIGN KEY (`ord_no`) REFERENCES `orders`(`ord_no`),
+FOREIGN KEY (`ord_index`) REFERENCES `orders`(`ord_index`),
+FOREIGN KEY (`product_no`) REFERENCES `product`(`product_no`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `ORDER_DETAILS`(
-`ORD_NO`,`ORD_INDEX`,`PRODUCT_NO`,`PRODUCT_NAME`,`PURCHASE_COUNT`,`PURCHASE_PRICE`)VALUES
-(231231182410,1,1001,'南瓜蔬食調理包',1,330);
+INSERT INTO `order_details`(`ord_index`,`ord_no`,`product_no`,`product_name`,`product_price`,`product_quantity`)VALUES
+(1,UNIX_TIMESTAMP(NOW(6)),1001,'南瓜蔬食調理包',330,1);
 
 -- 商品我的最愛 `FAVORITE`
-create table `FAVORITE`(
-`FAVORITE_NO`int AUTO_INCREMENT NOT NULL,
-`USER_NO`int NOT NULL,
-`PRODUCT_NO`int NOT NULL,
-`PRODUCT_NAME`varchar(20) NOT NULL DEFAULT '',
-PRIMARY KEY (`FAVORITE_NO`),
-foreign key(`USER_NO`)references MEMBERS(`MEMBER_NO`),
-FOREIGN KEY (`PRODUCT_NO`) REFERENCES `PRODUCT`(`PRODUCT_NO`)
+create table `favorite`(
+`favorite_no`int AUTO_INCREMENT NOT NULL,
+`member_no`int NOT NULL,
+`product_no`int NOT NULL,
+`product_name`varchar(20) NOT NULL DEFAULT '',
+PRIMARY KEY (`favorite_NO`),
+foreign key(`member_no`)references MEMBERS(`member_no`),
+FOREIGN KEY (`product_no`) REFERENCES `PRODUCT`(`product_no`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-insert into `FAVORITE`(
-`USER_NO`,`PRODUCT_NO`,`PRODUCT_NAME`)VALUES
+insert into `favorite`(
+`member_no`,`product_no`,`product_name`)VALUES
 (1,1001,'南瓜蔬食調理包');
 
 -- 首頁推薦商品 `FEATURED_PRODUCT`
