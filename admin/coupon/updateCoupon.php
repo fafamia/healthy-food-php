@@ -19,12 +19,12 @@ try {
 
     $coupon = $pdo->prepare($sql);
 
-    $coupon->bindParam(':ans_num', $data['ans_num']);
-    $coupon->bindParam(':coupon_value', $data['coupon_value']);
-    $coupon->bindParam(':coupon_valid_days', $data['coupon_valid_days']);
-    $coupon->bindParam(':coupon_status', $data['coupon_status']);
-    $coupon->bindParam(':coupon_content', $data['coupon_content']);
-    $coupon->bindParam(':coupon_no', $data['coupon_no']);
+    $coupon->bindValue(':ans_num', $data['ans_num']);
+    $coupon->bindValue(':coupon_value', $data['coupon_value']);
+    $coupon->bindValue(':coupon_valid_days', $data['coupon_valid_days']);
+    $coupon->bindValue(':coupon_status', $data['coupon_status']);
+    $coupon->bindValue(':coupon_content', $data['coupon_content']);
+    $coupon->bindValue(':coupon_no', $data['coupon_no']);
 
     $coupon->execute();
 
