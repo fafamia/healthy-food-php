@@ -242,7 +242,7 @@ CREATE TABLE `comment`(
     `comment_time` DATETIME,
     `comment_like` INT,
     `comment_status` TINYINT,
-    `comment_img` VARCHAR(50)
+    `comment_img` VARCHAR(50),
     
     FOREIGN KEY (user_no) REFERENCES users(user_no),
     FOREIGN KEY (recipe_no) REFERENCES recipe(recipe_no)
