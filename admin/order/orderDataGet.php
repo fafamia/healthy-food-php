@@ -7,7 +7,7 @@ try {
     header('Content-Type: application/json');
     require_once("../../connect_chd104g3.php");
     
-    $sql = "SELECT * FROM orders";
+    $sql = "SELECT * FROM orders ORDER BY ord_time DESC";
 
     $orders = $pdo->query($sql);
     $orderRows = $orders->fetchAll(PDO::FETCH_ASSOC);
