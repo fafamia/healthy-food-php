@@ -1,9 +1,9 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+08:00";
+-- SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+-- START TRANSACTION;
+-- SET time_zone = "+08:00";
 
-CREATE DATABASE IF NOT EXISTS `food` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `food`;
+-- CREATE DATABASE IF NOT EXISTS `food` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+-- USE `food`;
 
 -- ---------------------于靖-----------------------
 
@@ -242,6 +242,7 @@ CREATE TABLE `comment`(
     `comment_time` DATETIME,
     `comment_like` INT,
     `comment_status` TINYINT,
+    `comment_img` VARCHAR(50),
     
     FOREIGN KEY (user_no) REFERENCES users(user_no),
     FOREIGN KEY (recipe_no) REFERENCES recipe(recipe_no)
