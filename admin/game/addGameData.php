@@ -6,10 +6,12 @@ header("Content-Type:application/json;charset=utf-8");
 
 try {
     require_once("../../connect_chd104g3.php");
-    $sql = "INSERT INTO `quiz_game` (`quiz_name`, `option_a`, `option_b`, `option_c`, `option_d`, `quiz_ans`, `quiz_ans_info`, `quiz_photo`, `quiz_status`) VALUES (:quiz_name, :option_a, :option_b, :option_c, :option_d, :quiz_ans, :quiz_ans_info, :quiz_photo, :quiz_status)";
 
+    // 首先插入题目信息（不包括图片）
+    $sql = "INSERT INTO `quiz_game` (`quiz_name`, `option_a`, `option_b`, `option_c`, `option_d`, `quiz_ans`, `quiz_ans_info`, `quiz_status`) VALUES (:quiz_name, :option_a, :option_b, :option_c, :option_d, :quiz_ans, :quiz_ans_info, :quiz_status)";
     $game = $pdo->prepare($sql);
-    // 綁定數據
+
+    // 绑定数据
     $game->bindValue(":quiz_name", $_POST['quiz_name']);
     $game->bindValue(":option_a", $_POST['option_a']);
     $game->bindValue(":option_b", $_POST['option_b']);
@@ -19,32 +21,33 @@ try {
     $game->bindValue(":quiz_ans_info", $_POST['quiz_ans_info']);
     $game->bindValue(":quiz_status", $_POST['quiz_status']);
 
+    $game->execute();
+
+    // 获取自增ID（quiz_no）
+    $quiz_no = $pdo->lastInsertId();
+
     if (isset($_FILES["quiz_photo"]) && $_FILES["quiz_photo"]["error"] === 0) {
-        $dir = "../../../images/game/"; // 指定存儲上傳圖片的目錄
+        $dir = "../../../images/game/";
         if (!file_exists($dir)) {
-            mkdir($dir, 0755, true); // 如果目錄不存在，則創建資料夾
+            mkdir($dir, 0755, true);
         }
-        //取得檔案名（不含副檔名）
-        $fileName = pathinfo($_FILES["quiz_photo"]["name"], PATHINFO_FILENAME);
-        //取得副檔名
+
+        // 文件扩展名
         $fileExt = pathinfo($_FILES["quiz_photo"]["name"], PATHINFO_EXTENSION);
-        //組合新的檔案名
-        $newFileName = $fileName . '.' . $fileExt;
-        $from = $_FILES["quiz_photo"]["tmp_name"]; // 暫存檔案名稱
-        $to = $dir . $newFileName; // 目標檔案名稱
+        // 根据 quiz_no 构造新文件名
+        $newFileName = "game_" . $quiz_no . '.' . $fileExt;
+        $from = $_FILES["quiz_photo"]["tmp_name"];
+        $to = $dir . $newFileName;
 
-        if (move_uploaded_file($from, $to)) { // 移動檔案到指定目錄
-            // 使用move_uploaded_file而不是copy，因為它在移動上傳的檔案時更安全
-
-            $game->bindValue(":quiz_photo", $newFileName); // 如果上傳成功，將新檔案名指派給變量，以便後續存儲到數據庫
-        } else {
-            $game->bindValue(":quiz_photo", ''); // 如果上傳失敗，將檔案名設置為空字串
+        if (move_uploaded_file($from, $to)) {
+            // 更新数据库记录以包含图片文件名
+            $sqlUpdate = "UPDATE `quiz_game` SET `quiz_photo` = :quiz_photo WHERE `quiz_no` = :quiz_no";
+            $updateStmt = $pdo->prepare($sqlUpdate);
+            $updateStmt->bindValue(":quiz_photo", $newFileName);
+            $updateStmt->bindValue(":quiz_no", $quiz_no);
+            $updateStmt->execute();
         }
-    } else {
-        $game->bindValue(":quiz_photo", ''); // 如果沒有檔案被上傳或檔案上傳出錯，也設置為空字串
     }
-
-    $game->execute(); //執行
 
     $result = ["error" => false, "msg" => "新增成功", "game" => $game];
 } catch (PDOException $e) {
