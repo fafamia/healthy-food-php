@@ -8,8 +8,9 @@ try {
 require_once("../../connect_chd104g3.php");
 $type = json_decode(file_get_contents('php://input'));
 // 準備 SQL 查詢
-$sql = "SELECT * FROM product WHERE product_name IN (SELECT product_name FROM prodgroup_details WHERE prodgroup_no = :prodgroup_no)";
-
+$sql = "SELECT * FROM product p 
+        JOIN product_tag pt ON p.product_tag_no = pt.product_tag_no 
+        WHERE p.product_name IN (SELECT pd.product_name FROM prodgroup_details pd WHERE pd.prodgroup_no = :prodgroup_no)";
 // 準備查詢
 $stmt = $pdo->prepare($sql);
 // 綁定參數

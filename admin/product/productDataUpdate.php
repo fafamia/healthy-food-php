@@ -8,7 +8,7 @@ try {
     
     if(isset($_FILES["product_img"]) && $_FILES["product_img"]["error"] === 0){
         error_log("Processing uploaded file");
-        $dir = "../../../image/product/";
+        $dir = "../../../images/product/";
         if(!file_exists($dir)){
             mkdir($dir,0755,true);
         }
