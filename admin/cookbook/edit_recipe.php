@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         // 檢查是否有上傳圖片
         if (isset($_FILES["recipe_img"]) && $_FILES["recipe_img"]["error"] === 0) {
-            $dir = "../../../image/cookbook/";
+            $dir = "../../../images/cookbook/";
             if (!file_exists($dir)) {
                 mkdir($dir, 0755, true);
             }

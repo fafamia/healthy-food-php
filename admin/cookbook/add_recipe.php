@@ -22,7 +22,7 @@ try {
 
     // 圖片上傳檔案位置
     if (isset($_FILES["recipe_img"]) && $_FILES["recipe_img"]["error"] === 0) {
-        $dir = "../../../image/cookbook/";
+        $dir = "../../../images/cookbook/";
         if (!file_exists($dir)) {
             mkdir($dir, 0755, true);
         }
