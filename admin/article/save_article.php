@@ -9,20 +9,16 @@ require_once("../../connect_chd104g3.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (
         isset($_POST['article_title']) &&
-        isset($_POST['article_class']) &&  // 確保有值
         isset($_POST['article_description']) &&
-        isset($_POST['cover_photo']) &&  // 可能需要使用 $_FILES
-        isset($_POST['content']) &&  // 確保有值
-        isset($_POST['creation_time']) &&  // 確保有值
         isset($_POST['article_status'])
     ) {
         $article_title = $_POST['article_title'];
         $article_description = $_POST['article_description'];
         $article_status = $_POST['article_status'];
 
-        
+        // 如果有上傳封面圖片
         if (!empty($_FILES['cover_photo']['tmp_name'])) {
-            $uploadDir = "../../../images/article"; 
+            $uploadDir = "../../../images/article";
             $uploadFile = $uploadDir . basename($_FILES['cover_photo']['name']);
 
             if (move_uploaded_file($_FILES['cover_photo']['tmp_name'], $uploadFile)) {
@@ -43,11 +39,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     `article_title`,
                     `article_description`,
                     `cover_photo`,
+                    `content`,  
+                    `creation_time`, 
                     `article_status`
                 ) VALUES (
                     :article_title,
                     :article_description,
                     :cover_photo,
+                    :content,  
+                    NOW(),  
                     :article_status
                 )
             ");
@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $query->bindParam(':article_title', $article_title);
             $query->bindParam(':article_description', $article_description);
             $query->bindParam(':cover_photo', $cover_photo);
+            $query->bindParam(':content', $_POST['content']);  // 使用 $_POST['content'] 取得 'content' 欄位的值
             $query->bindParam(':article_status', $article_status);
 
             $query->execute();
@@ -67,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode(['error' => 'POST 資料缺少']);
     }
 } else {
-   
+
 }
 
 $pdo = null;
