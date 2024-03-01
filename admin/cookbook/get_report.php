@@ -7,7 +7,7 @@ try {
 
     require_once("../../connect_chd104g3.php");
 
-    $sql = "SELECT * FROM report order by 1";
+    $sql = "SELECT * FROM report r JOIN comment c on r.comment_no = c.comment_no order by 1";
 
     $report = $pdo->query($sql);
     $reportRows = $report->fetchAll(PDO::FETCH_ASSOC);
