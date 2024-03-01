@@ -20,14 +20,19 @@ try {
     $members->bindValue(":memPsw", $member_password);
     $members->execute(); //執行之
 
-    if ($members->rowCount() == 0) { //找不到
-        $errMsg .= "帳密錯誤, <router-link to='/'>重新登入</router-link><br>";
-    } else {
-
+    if ($members->rowCount() > 0) { //找不到
         $memRow = $members->fetch(PDO::FETCH_ASSOC);
 
-
-        echo json_encode(["message" => "登入成功", "status" => "success", "member" => $memRow]);
+        // 檢查是否為黑名單
+        if ($memRow['member_status'] == 2) {
+            // 是黑名單
+            echo json_encode(["message" => "此帳號為黑名單，禁止登入", "status" => "fail"]);
+        } else {
+            // 不是黑名單，正常登入
+            echo json_encode(["message" => "登入成功", "status" => "success", "member" => $memRow]);
+        }
+    } else {
+        $errMsg .= "帳密錯誤, <router-link to='/'>重新登入</router-link><br>";
     }
 } catch (PDOException $e) {
     $errMsg .= "錯誤 : " . $e->getMessage() . "<br>";

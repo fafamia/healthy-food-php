@@ -44,10 +44,17 @@ try {
 
         echo json_encode(["message" => "新用戶創建成功，登入成功", "status" => "success", "member" => $newMemberInfo]);
     } else {
-        // 用戶已存在，獲取並返回用戶信息（不包括密碼）
         $existingMemberInfo = $member->fetch(PDO::FETCH_ASSOC);
-        unset($existingMemberInfo['member_password']); // 移除密碼字段
-        echo json_encode(["message" => "用戶已存在，登入成功", "status" => "success", "member" => $existingMemberInfo]);
+
+        // 檢查是否為黑名單
+        if ($existingMemberInfo['member_status'] == 2) {
+            // 是黑名單
+            echo json_encode(["message" => "此帳號為黑名單，禁止登入", "status" => "fail"]);
+        } else {
+            // 不是黑名單，正常登入
+            unset($existingMemberInfo['member_password']); // 移除密碼字段
+            echo json_encode(["message" => "用戶已存在，登入成功", "status" => "success", "member" => $existingMemberInfo]);
+        }
     }
 } catch (PDOException $e) {
     $errMsg = "錯誤 : " . $e->getMessage() . "<br>";
