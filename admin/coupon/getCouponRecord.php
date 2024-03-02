@@ -10,7 +10,8 @@ try {
 
     $sql = "SELECT cr.*, c.* FROM coupons_record cr
             JOIN coupons c ON cr.coupon_no = c.coupon_no
-            WHERE cr.member_no = :member_no";
+            WHERE cr.member_no = :member_no
+            AND cr.coupon_use_status = 0";
 
     $couponRecore = $pdo->prepare($sql);
     $couponRecore->bindParam(':member_no', $member_no, PDO::PARAM_INT);
