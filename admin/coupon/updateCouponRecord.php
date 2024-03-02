@@ -16,7 +16,7 @@ try {
     }else{
 
         $sql = "UPDATE `coupons_record` 
-                SET  `coupon_use_status` = 1
+                SET  `coupon_use_status` = 2
                 WHERE `member_no` = :member_no 
                 AND `record_no` = :record_no";
     
